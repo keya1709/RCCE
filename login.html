@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - RCCE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 4rem);
+        }
+        .auth-card {
+            width: 100%;
+            max-width: 400px;
+            padding: 2.5rem;
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            color: var(--dark-text);
+            border: 1px solid var(--border-color);
+        }
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .auth-header .emoji-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .auth-header h1 {
+            font-size: 1.5rem;
+            color: var(--primary-green);
+        }
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            background: var(--light-green);
+            padding: 0.25rem;
+            border-radius: 12px;
+        }
+        .auth-tab {
+            flex: 1;
+            padding: 0.75rem;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: var(--light-text);
+        }
+        .auth-tab.active {
+            background: var(--card-bg);
+            color: var(--primary-green);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .form-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
+        .error-message {
+            background: #fee2e2;
+            color: #dc2626;
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            display: none;
+        }
+        #signup-form {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="user-bar" style="margin-top: 1rem; border: none; box-shadow: none; background: transparent;">
+        <div class="theme-toggle" id="theme-toggle" title="Toggle Dark Mode">
+            <span class="sun-icon">☀️</span>
+            <span class="moon-icon">🌙</span>
+        </div>
+    </div>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="emoji-icon">🌲</div>
+                <h1>Welcome to RCCE</h1>
+                <p>Login to save your estimations</p>
+            </div>
+
+            <div class="auth-tabs">
+                <div class="auth-tab active" id="tab-login">Login</div>
+                <div class="auth-tab" id="tab-signup">Sign Up</div>
+            </div>
+
+            <div id="error-box" class="error-message"></div>
+
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email Address</label>
+                    <input type="email" id="login-email" required placeholder="name@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required placeholder="••••••••">
+                </div>
+                <button type="submit" id="btn-login">Login</button>
+            </form>
+
+            <form id="signup-form">
+                <div class="form-group">
+                    <label for="signup-email">Email Address</label>
+                    <input type="email" id="signup-email" required placeholder="name@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" required placeholder="••••••••">
+                </div>
+                <button type="submit" id="btn-signup">Create Account</button>
+            </form>
+
+            <div class="form-footer">
+                <p>Protecting our planet, one tree at a time.</p>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="auth.js"></script>
+    <script>
+        // Theme Toggle Logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        if (localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark-mode');
+        }
+
+        themeToggle.onclick = () => {
+            body.classList.toggle('dark-mode');
+            const isDark = body.classList.contains('dark-mode');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        };
+
+        // UI Logic for switching tabs
+        const tabLogin = document.getElementById('tab-login');
+        const tabSignup = document.getElementById('tab-signup');
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+        const authHeaderP = document.querySelector('.auth-header p');
+
+        tabLogin.onclick = () => {
+            tabLogin.classList.add('active');
+            tabSignup.classList.remove('active');
+            loginForm.style.display = 'block';
+            signupForm.style.display = 'none';
+            authHeaderP.innerText = 'Login to save your estimations';
+        };
+
+        tabSignup.onclick = () => {
+            tabSignup.classList.add('active');
+            tabLogin.classList.remove('active');
+            loginForm.style.display = 'none';
+            signupForm.style.display = 'block';
+            authHeaderP.innerText = 'Start your reforestation journey';
+        };
+    </script>
+</body>
+</html>
