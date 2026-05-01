@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,36 +13,54 @@
             justify-content: center;
             align-items: center;
             min-height: calc(100vh - 4rem);
+            position: relative;
+            z-index: 1;
         }
+
         .auth-card {
             width: 100%;
             max-width: 400px;
             padding: 2.5rem;
             background: var(--card-bg);
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
             color: var(--dark-text);
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--card-border);
+            animation: slideUp 0.8s ease-out forwards;
         }
+
         .auth-header {
             text-align: center;
             margin-bottom: 2rem;
         }
+
         .auth-header .emoji-icon {
-            font-size: 2.5rem;
+            font-size: 3rem;
             margin-bottom: 1rem;
+            display: inline-block;
+            animation: pulseIcon 2s infinite ease-in-out;
         }
+
         .auth-header h1 {
-            font-size: 1.5rem;
-            color: var(--primary-green);
+            font-size: 1.75rem;
+            background: linear-gradient(135deg, var(--primary-green-hover), var(--accent-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            letter-spacing: -0.5px;
         }
+
         .auth-tabs {
             display: flex;
             margin-bottom: 2rem;
-            background: var(--light-green);
-            padding: 0.25rem;
+            background: rgba(16, 185, 129, 0.05);
+            padding: 0.35rem;
             border-radius: 12px;
+            border: 1px solid var(--card-border);
         }
+
         .auth-tab {
             flex: 1;
             padding: 0.75rem;
@@ -52,17 +71,21 @@
             transition: all 0.3s ease;
             color: var(--light-text);
         }
+
         .auth-tab.active {
             background: var(--card-bg);
             color: var(--primary-green);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--card-border);
         }
+
         .form-footer {
             text-align: center;
             margin-top: 1.5rem;
             font-size: 0.9rem;
             color: var(--light-text);
         }
+
         .error-message {
             background: #fee2e2;
             color: #dc2626;
@@ -72,13 +95,19 @@
             font-size: 0.85rem;
             display: none;
         }
+
         #signup-form {
             display: none;
         }
     </style>
 </head>
+
 <body>
-    <div class="user-bar" style="margin-top: 1rem; border: none; box-shadow: none; background: transparent;">
+    <!-- Ambient Background Elements -->
+    <div class="bg-orb bg-orb-1"></div>
+    <div class="bg-orb bg-orb-2"></div>
+
+    <div class="user-bar" style="margin-top: 1rem; position: relative; z-index: 1;">
         <div class="theme-toggle" id="theme-toggle" title="Toggle Dark Mode">
             <span class="sun-icon">☀️</span>
             <span class="moon-icon">🌙</span>
@@ -169,4 +198,5 @@
         };
     </script>
 </body>
+
 </html>

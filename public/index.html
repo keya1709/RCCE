@@ -13,6 +13,10 @@
 </head>
 
 <body>
+    <!-- Ambient Background Elements -->
+    <div class="bg-orb bg-orb-1"></div>
+    <div class="bg-orb bg-orb-2"></div>
+    
     <div class="user-bar">
         <div class="theme-toggle" id="theme-toggle" title="Toggle Dark Mode">
             <span class="sun-icon">☀️</span>
@@ -58,6 +62,48 @@
                     <label for="tree-species">Tree Species</label>
                     <select id="tree-species">
                         <option value="" disabled selected>Loading species...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="project-region">Project Region</label>
+                    <select id="project-region">
+                        <option value="Default" selected>All Regions</option>
+                        <option value="Jammu and Kashmir (JK)">Jammu and Kashmir (JK)</option>
+                        <option value="Himachal pradesh (HP)">Himachal pradesh (HP)</option>
+                        <option value="Uttarakhand (UK)">Uttarakhand (UK)</option>
+                        <option value="Sikkim (SK)">Sikkim (SK)</option>
+                        <option value="West Bengal (WB)">West Bengal (WB)</option>
+                        <option value="Arunachal Pradesh (AR)">Arunachal Pradesh (AR)</option>
+                        <option value="Nagaland (NL)">Nagaland (NL)</option>
+                        <option value="Manipur (MN)">Manipur (MN)</option>
+                        <option value="Mizoram (MZ)">Mizoram (MZ)</option>
+                        <option value="Tripura (TR)">Tripura (TR)</option>
+                        <option value="Meghalaya (ML)">Meghalaya (ML)</option>
+                        <option value="Assam (AS)">Assam (AS)</option>
+                        <option value="Ladakh (LA)">Ladakh (LA)</option>
+                        <option value="Gujrat (GU)">Gujrat (GU)</option>
+                        <option value="Chhattisgarh (CG)">Chhattisgarh (CG)</option>
+                        <option value="Madhya Pradesh (MP)">Madhya Pradesh (MP)</option>
+                        <option value="Haryana (HR)">Haryana (HR)</option>
+                        <option value="Delhi (DL)">Delhi (DL)</option>
+                        <option value="Punjab (PB)">Punjab (PB)</option>
+                        <option value="Bihar (BR)">Bihar (BR)</option>
+                        <option value="Goa (GA)">Goa (GA)</option>
+                        <option value="Lakshadweep (LD)">Lakshadweep (LD)</option>
+                        <option value="Pondicherry (PY)">Pondicherry (PY)</option>
+                        <option value="Chandigarh (CH)">Chandigarh (CH)</option>
+                        <option value="Andaman & Nicobar Islands (AN)">Andaman & Nicobar Islands (AN)</option>
+                        <option value="Andhra Pradesh (AP)">Andhra Pradesh (AP)</option>
+                        <option value="Kerala (KL)">Kerala (KL)</option>
+                        <option value="Jharkhand (JH)">Jharkhand (JH)</option>
+                        <option value="Uttar Pradesh (UP)">Uttar Pradesh (UP)</option>
+                        <option value="Rajasthan (RJ)">Rajasthan (RJ)</option>
+                        <option value="Tamil Nadu (TN)">Tamil Nadu (TN)</option>
+                        <option value="Telangana (TG)">Telangana (TG)</option>
+                        <option value="Odisha (OD)">Odisha (OD)</option>
+                        <option value="Karnataka (KA)">Karnataka (KA)</option>
+                        <option value="Maharashtra (MH)">Maharashtra (MH)</option>
                     </select>
                 </div>
 
@@ -109,6 +155,14 @@
                 <div class="chart-container card">
                     <canvas id="co2Chart"></canvas>
                 </div>
+                <button id="save-estimation-btn" style="margin-top: 1rem;">Save Estimation</button>
+            </section>
+
+            <section id="past-estimations-section" class="card hidden" style="margin-top: 2.5rem;">
+                <h2>Past Estimations</h2>
+                <div id="past-estimations-list" style="display: flex; flex-direction: column; gap: 1rem;">
+                    <!-- Past estimations will be loaded here -->
+                </div>
             </section>
         </main>
     </div>
@@ -116,6 +170,7 @@
     <!-- Include Chart.js from CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Link to custom JS -->
+    <script src="state_species.js"></script>
     <script src="script.js"></script>
 </body>
 

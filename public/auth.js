@@ -80,7 +80,11 @@ onAuthStateChanged(auth, (user) => {
         // If on index, maybe show user email
         const userDisplay = document.getElementById('user-email-display');
         if (userDisplay) userDisplay.innerText = user.email;
+        window.currentUserEmail = user.email;
+        // Trigger an event so script.js knows auth is ready
+        window.dispatchEvent(new Event('authReady'));
     } else {
+        window.currentUserEmail = null;
         if (!isLoginPage) {
             window.location.href = 'login.html';
         }
