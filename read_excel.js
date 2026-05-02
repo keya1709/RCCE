@@ -1,7 +1,9 @@
 const xlsx = require('xlsx');
 const fs = require('fs');
+const path = require('path');
 
-const filePath = 'C:\\Users\\nehak\\Dropbox\\My PC (LAPTOP-2JGJBJKB)\\Downloads\\Appendix-B.xlsx';
+// Use a relative path so the file works on any machine
+const filePath = path.join(__dirname, 'Appendix-B.xlsx');
 
 try {
     const workbook = xlsx.readFile(filePath);
