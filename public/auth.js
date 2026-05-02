@@ -85,7 +85,9 @@ onAuthStateChanged(auth, (user) => {
         window.dispatchEvent(new Event('authReady'));
     } else {
         window.currentUserEmail = null;
-        if (!isLoginPage) {
+        // Don't redirect if we are on the homepage or login page
+        const isHomePage = window.location.pathname.includes('home.html') || window.location.pathname === '/' || window.location.pathname.endsWith('/');
+        if (!isLoginPage && !isHomePage) {
             window.location.href = 'login.html';
         }
     }
