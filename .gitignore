@@ -1,3 +1,4 @@
 node_modules/
 database.sqlite
 state_species_map.json
+.env

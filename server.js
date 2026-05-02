@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
@@ -97,6 +98,31 @@ app.put('/api/estimations/:id', (req, res) => {
 });
 
 // API Endpoint: Delete an estimation
+// API Endpoint: Proxy for OpenWeather API (keeps key secure on backend)
+app.get('/api/weather', async (req, res) => {
+    const { city } = req.query;
+    const apiKey = process.env.OPENWEATHER_API_KEY;
+
+    if (!city) {
+        return res.status(400).json({ error: 'City is required' });
+    }
+
+    try {
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apiKey}&units=metric`;
+        const response = await fetch(url);
+        const data = await response.json();
+        
+        if (!response.ok) {
+            return res.status(response.status).json(data);
+        }
+        
+        res.json(data);
+    } catch (error) {
+        console.error('Weather proxy error:', error);
+        res.status(500).json({ error: 'Internal server error fetching weather' });
+    }
+});
+
 app.delete('/api/estimations/:id', (req, res) => {
     const sql = `DELETE FROM estimations WHERE id = ?`;
     db.run(sql, req.params.id, function(err) {

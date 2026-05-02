@@ -109,7 +109,7 @@
 
                 <div class="form-group">
                     <label for="project-duration">Project Duration (Years)</label>
-                    <input type="number" id="project-duration" placeholder="e.g. 10" min="1">
+                    <input type="number" id="project-duration" placeholder="e.g. 10 (max 30)" min="1" max="30">
                 </div>
 
                 <div class="form-group">
@@ -121,6 +121,14 @@
                 </div>
 
                 <button id="calculate-btn">Calculate Impact</button>
+            </section>
+
+            <!-- Weather Card: shown after Calculate is clicked -->
+            <section id="weather-card" class="card hidden">
+                <h2>🌤️ Live Climate Conditions</h2>
+                <div id="weather-content">
+                    <!-- Filled dynamically by script.js -->
+                </div>
             </section>
 
             <section id="results-section" class="results-section hidden">
