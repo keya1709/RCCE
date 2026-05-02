@@ -110,8 +110,9 @@ async function fetchWeatherForRegion(regionValue) {
         </div>`;
 
     try {
-        // Detect if we are on a different port (like VS Code Live Server) and point to the backend port 3000
-        const backendBase = (window.location.hostname === 'localhost' && window.location.port !== '3000') 
+        // Support both localhost and 127.0.0.1 for port detection (handles VS Code Live Server)
+        const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        const backendBase = (isLocal && window.location.port !== '3000') 
             ? 'http://localhost:3000' 
             : '';
             
