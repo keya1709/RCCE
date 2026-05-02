@@ -28,19 +28,13 @@ if (loginForm) {
         const email = document.getElementById('login-email').value;
         const pass = document.getElementById('login-password').value;
 
-        console.log("Attempting login...");
         signInWithEmailAndPassword(auth, email, pass)
             .then(() => {
                 window.location.href = 'index.html';
             })
             .catch((error) => {
-                console.error("Login error:", error);
                 errorBox.style.display = 'block';
-                if (error.code === 'auth/configuration-not-found') {
-                    errorBox.innerHTML = "<strong>Firebase Error:</strong> Email/Password authentication is not enabled in your Firebase Console. Please enable it under Authentication > Sign-in method.";
-                } else {
-                    errorBox.innerText = error.message;
-                }
+                errorBox.innerText = error.message;
             });
     });
 }
@@ -52,19 +46,13 @@ if (signupForm) {
         const email = document.getElementById('signup-email').value;
         const pass = document.getElementById('signup-password').value;
 
-        console.log("Attempting signup...");
         createUserWithEmailAndPassword(auth, email, pass)
             .then(() => {
                 window.location.href = 'index.html';
             })
             .catch((error) => {
-                console.error("Signup error:", error);
                 errorBox.style.display = 'block';
-                if (error.code === 'auth/configuration-not-found') {
-                    errorBox.innerHTML = "<strong>Firebase Error:</strong> Email/Password authentication is not enabled in your Firebase Console. Please enable it under Authentication > Sign-in method.";
-                } else {
-                    errorBox.innerText = error.message;
-                }
+                errorBox.innerText = error.message;
             });
     });
 }
@@ -76,6 +64,7 @@ onAuthStateChanged(auth, (user) => {
     const isHomePage = path.includes('home') || path === '/' || path.endsWith('/');
     
     if (user) {
+        // If logged in and on Login or Home page, go to calculator
         if (isLoginPage) {
             window.location.href = 'index.html';
         }
