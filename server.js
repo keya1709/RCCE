@@ -101,6 +101,7 @@ app.put('/api/estimations/:id', (req, res) => {
 // API Endpoint: Proxy for OpenWeather API (keeps key secure on backend)
 app.get('/api/weather', async (req, res) => {
     const { city } = req.query;
+    console.log(`[Weather API] Request received for city: ${city}`);
     const apiKey = process.env.OPENWEATHER_API_KEY;
 
     if (!city) {
@@ -113,12 +114,14 @@ app.get('/api/weather', async (req, res) => {
         const data = await response.json();
         
         if (!response.ok) {
+            console.error(`[Weather API] OpenWeather error for ${city}:`, data);
             return res.status(response.status).json(data);
         }
         
+        console.log(`[Weather API] Successfully fetched weather for ${city}`);
         res.json(data);
     } catch (error) {
-        console.error('Weather proxy error:', error);
+        console.error(`[Weather API] Fetch failed for ${city}:`, error);
         res.status(500).json({ error: 'Internal server error fetching weather' });
     }
 });

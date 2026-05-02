@@ -110,8 +110,12 @@ async function fetchWeatherForRegion(regionValue) {
         </div>`;
 
     try {
-        // Now calling our own backend proxy instead of OpenWeather directly
-        const url = `/api/weather?city=${encodeURIComponent(city)}`;
+        // Detect if we are on a different port (like VS Code Live Server) and point to the backend port 3000
+        const backendBase = (window.location.hostname === 'localhost' && window.location.port !== '3000') 
+            ? 'http://localhost:3000' 
+            : '';
+            
+        const url = `${backendBase}/api/weather?city=${encodeURIComponent(city)}`;
         const res  = await fetch(url);
 
         if (!res.ok) {
