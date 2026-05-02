@@ -71,22 +71,21 @@ if (signupForm) {
 
 // Global Auth Observer & Logout setup
 onAuthStateChanged(auth, (user) => {
-    const isLoginPage = window.location.pathname.includes('login.html');
+    const path = window.location.pathname.toLowerCase();
+    const isLoginPage = path.includes('login');
+    const isHomePage = path.includes('home') || path === '/' || path.endsWith('/');
     
     if (user) {
         if (isLoginPage) {
             window.location.href = 'index.html';
         }
-        // If on index, maybe show user email
         const userDisplay = document.getElementById('user-email-display');
         if (userDisplay) userDisplay.innerText = user.email;
         window.currentUserEmail = user.email;
-        // Trigger an event so script.js knows auth is ready
         window.dispatchEvent(new Event('authReady'));
     } else {
         window.currentUserEmail = null;
-        // Don't redirect if we are on the homepage or login page
-        const isHomePage = window.location.pathname.includes('home.html') || window.location.pathname === '/' || window.location.pathname.endsWith('/');
+        // Only redirect to login if we AREN'T already on the Login or Home page
         if (!isLoginPage && !isHomePage) {
             window.location.href = 'login.html';
         }
