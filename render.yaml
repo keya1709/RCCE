@@ -7,6 +7,6 @@ services:
     startCommand: npm start
     envVars:
       - key: NODE_VERSION
-        value: 18.0.0
+        value: 20.0.0
       - key: OPENWEATHER_API_KEY
         sync: false
