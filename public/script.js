@@ -111,7 +111,7 @@ async function fetchWeatherForRegion(regionValue) {
 
     try {
         // Now calling our own backend proxy instead of OpenWeather directly
-        const url = `http://localhost:3000/api/weather?city=${encodeURIComponent(city)}`;
+        const url = `/api/weather?city=${encodeURIComponent(city)}`;
         const res  = await fetch(url);
 
         if (!res.ok) {
