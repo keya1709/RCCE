@@ -1,6 +1,11 @@
 // ===================== OPENWEATHER CONFIG =====================
 // Note: API Key is now handled securely on the backend in server.js
 
+function getApiBase() {
+    const isDevPort = window.location.port && window.location.port !== '3000';
+    return isDevPort ? `${window.location.protocol}//${window.location.hostname}:3000` : '';
+}
+
 // Maps each Indian state dropdown value → a representative city for OpenWeather
 const stateToCity = {
     'Jammu and Kashmir (JK)': 'Srinagar',
@@ -110,13 +115,7 @@ async function fetchWeatherForRegion(regionValue) {
         </div>`;
 
     try {
-        // Support both localhost and 127.0.0.1 for port detection (handles VS Code Live Server)
-        const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-        const backendBase = (isLocal && window.location.port !== '3000') 
-            ? 'http://localhost:3000' 
-            : '';
-            
-        const url = `${backendBase}/api/weather?city=${encodeURIComponent(city)}`;
+        const url = `${getApiBase()}/api/weather?city=${encodeURIComponent(city)}`;
         const res  = await fetch(url);
 
         if (!res.ok) {
@@ -548,7 +547,8 @@ if (saveBtn) {
             saveBtn.disabled = true;
             saveBtn.innerText = currentEditId ? "Updating..." : "Saving...";
             
-            const url = currentEditId ? `http://localhost:3000/api/estimations/${currentEditId}` : 'http://localhost:3000/api/estimations';
+            const apiBase = getApiBase();
+            const url = currentEditId ? `${apiBase}/api/estimations/${currentEditId}` : `${apiBase}/api/estimations`;
             const method = currentEditId ? 'PUT' : 'POST';
 
             const res = await fetch(url, {
@@ -579,7 +579,7 @@ async function loadPastEstimations() {
     if (!window.currentUserEmail) return;
 
     try {
-        const res = await fetch(`http://localhost:3000/api/estimations/${window.currentUserEmail}`);
+        const res = await fetch(`${getApiBase()}/api/estimations/${window.currentUserEmail}`);
         if (res.ok) {
             const result = await res.json();
             const estimations = result.data;
@@ -664,7 +664,7 @@ window.editEstimation = function(id) {
 window.deleteEstimation = async function(id) {
     if (!confirm("Are you sure you want to delete this estimation?")) return;
     try {
-        const res = await fetch(`http://localhost:3000/api/estimations/${id}`, { method: 'DELETE' });
+        const res = await fetch(`${getApiBase()}/api/estimations/${id}`, { method: 'DELETE' });
         if (res.ok) {
             loadPastEstimations();
             if (currentEditId === id) {
